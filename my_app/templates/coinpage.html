@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>{{coin.name}} {{coin.symbol}}</title>
+{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/coinpage.css' %}">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
+{% endblock %}
+
+{% block content %}
+<div class="coinpage-wrapper">
+  <div class="coin-info-order-wrapper">
+    <div class="coin-info">
+      <div class="coin-info-image-wrapper">
+        <img class='coin-info-image' src="{{ coin.image_url }}" alt="{{ coin.name }}">
+        <h1>{{ coin.name }}</h1>
+      </div>
+      <h2><span class="price">{{ coin.price }}</span><span class="currency">AUD</span></h2>
+      <h3>You own {{ number_owned }} {{ coin.symbol }}.</h3>
+      <br>
+      <p>Market cap: {{ coin.market_cap }}</p>
+      <p>Volume: {{ coin.volume }}</p>
+      <p>24-hour high: {{ coin.high_24h }}</p>
+      <p>24-hour low: {{ coin.low_24h }}</p>
+      <p>24-hour change: {{ coin.change_24h }}</p>
+      <p>24-hour change (%): {{ coin.percent_change_24h }}</p>          
+    </div>
+    <div class="coin-order-form">
+      <p>You have {{ user.money }}AUD.</p>
+      <p>You own {{ number_owned }} {{ coin.symbol }}.</p>
+      {% load crispy_forms_tags %}
+        <form class="order-form" id="order-form" method="post" action="{% url 'coin' pk=coin.symbol  %}">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <p>{{ coin.symbol }} for <span id="cost">0.00</span>AUD</p>
+          {% for message in messages %}
+          <p class="{{ message.tags }}">{{ message }}</p>
+          {% endfor %}
+          <input class='button' id="submit-order-button" type="submit" value="Confirm">
+        </form>
+    </div>
+  </div>
+    <div class="coin-plot">
+      <label class="line-label">Coin value over time</label>
+      <div class='linechart-div-coin' id="linechart-div-coin">
+          <script>
+              var unparsed_line = '{{ coin.graph | escapejs }}'
+              var parsed_line = JSON.parse(unparsed_line);
+
+              var data = [
+                  {
+                      x: parsed_line['date'],
+                      y: parsed_line['value'],
+                      type: 'scatter'
+                  }
+              ];
+
+              var layout = {
+                title: {
+                    text: 'Coin value over time',
+                    font: {
+                        size:24
+                    }
+                },
+              };
+
+              var config = {responsive: true};
+
+              Plotly.newPlot('linechart-div-coin', data, layout, config);
+          </script>
+      </div>
+    </div>
+</div>
+
+<script>
+  function updateCost()
+  {
+    const quantity_element = document.getElementById('id_quantity');
+    const cost_element = document.getElementById('cost');
+    const newCost = (quantity_element.value * '{{ coin.price }}').toFixed(2);
+    cost_element.innerText = newCost;
+  }
+
+  function verifyOrder()
+  {
+    const order_type = document.getElementById('id_order_type').value;
+    const quantity = document.getElementById('id_quantity').value;
+    const price = parseFloat('{{ coin.price }}');
+    const cost = (quantity * price).toFixed(2);
+    const money = parseFloat('{{ user.money }}');
+
+    if (order_type == 'buy' && cost > money ||
+        order_type == 'sell' && quantity > '{{ number_owned }}')
+    {
+      document.getElementById('submit-order-button').disabled = true;
+    }
+    else {
+      document.getElementById('submit-order-button').disabled = false;
+    }
+  }
+
+  const quantity_element = document.getElementById('id_quantity');
+  const order_type = document.getElementById('id_order_type');
+  quantity_element.addEventListener('input', updateCost);
+  quantity_element.addEventListener('input', verifyOrder);
+  order_type.addEventListener('input', verifyOrder);
+
+
+
+</script>
+{% endblock %}

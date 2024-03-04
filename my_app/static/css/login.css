@@ -1,0 +1,16 @@
+.login-wrapper {
+    display:flex;
+    justify-content:center;
+    margin-top: 60px;
+}
+
+.login-form {
+    padding:60px;
+    width:30rem;
+    background-color:var(--color);
+    color:white;
+}
+
+.login-form a {
+    color:white;
+}

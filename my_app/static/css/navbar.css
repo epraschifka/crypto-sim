@@ -1,0 +1,53 @@
+.nav {
+    background-color:var(--color);
+    display:flex;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:99;
+    transition:0.2s;
+}
+
+.nav a, .nav p {
+    font-family: 'Montserrat', sans-serif;
+    color:rgb(190, 182, 182);
+    padding:0rem 1rem;
+    transition: color 0.5s ease;
+    font-size:1.4rem;
+}
+
+.nav.scrolled {
+    background-color:white;
+    color:black;
+}
+
+.nav a:hover{
+    color:white;
+}
+
+.left-links {
+    padding: 2rem 0rem 2rem 2rem;
+}
+
+.left-links a:first-child {
+    font-size:2rem;
+}
+
+.right-links {
+    padding: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+    .left-links {
+        padding: 1rem 0rem 1rem 1rem;
+    }
+    .left-links * {
+        display:block;
+        padding:0rem;
+    }
+
+    .right-links {
+        padding:3rem;
+    }
+    
+}

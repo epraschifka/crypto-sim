@@ -1,0 +1,15 @@
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    --color: rgb(20, 20, 20);
+}
+
+body {
+    --navbar-height: 104px;
+    background-color:var(--color);
+    min-height:100vh;
+}
+
+.nounderline:hover {
+    text-decoration: none;
+}

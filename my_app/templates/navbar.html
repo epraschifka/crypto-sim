@@ -1,0 +1,28 @@
+{% load static %}
+{% block title %}
+    <title>Document</title>
+{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+{% endblock %}
+{% block content %}
+<nav class="nav">
+    <div class="left-links">
+        <a class='nounderline' href="/dashboard">Crypto100</a>
+        <a class='nounderline' href="https://www.coingecko.com/" target="_blank">Powered by CoinGecko</a>
+    </div>
+    <div class="right-links">
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <input type="submit" value="Logout" class="button">
+        </form>
+        {% else %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <input type="submit" value="Login" class="button">
+        </form>
+        {% endif %}
+    </div>
+</nav>
+{% endblock %}

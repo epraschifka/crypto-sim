@@ -1,0 +1,48 @@
+{% load static %}
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/overview/linechart.css' %}">
+
+<div class = "linechart-wrapper overview-component">
+    <div class='linechart-div' id="linechart-div">
+        <script>
+            var unparsed_line = '{{ user.portfolio_graph | escapejs }}'
+            var parsed_line = JSON.parse(unparsed_line);
+
+            var data = [
+                {
+                    x: parsed_line['date'],
+                    y: parsed_line['value'],
+                    type: 'scatter'
+                }
+            ];
+
+            var layout = { 
+                title: {
+                    text: 'Portfolio value over time',
+                    font: {
+                        color: 'white',
+                        size:24
+                    }
+                },
+                font: {size: 16},
+                plot_bgcolor: 'rgb(20,20,20)',
+                paper_bgcolor: 'rgb(20, 20, 20);',
+                xaxis: {
+                    color:'white',
+                    gridcolor: 'white',
+                    
+                },
+
+                yaxis: {
+                    color:'white',
+                    gridcolor:'white'
+                }
+
+            };
+
+            var config = {responsive: true};
+
+            Plotly.newPlot('linechart-div', data, layout, config);
+        </script>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Register</title>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="register-wrapper">
+    <div class="register-form">
+    <h1>Register</h1>
+        {% load crispy_forms_tags %}
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <p style="font-size:13px; color:grey;">How much money you'll start out with</p>
+            <input class='button' type="submit" value="Start Trading!">
+        </form>
+        <br>
+        <a href="{% url 'login' %}">Back to login</a>
+    </div>
+</div>
+{% endblock content %}

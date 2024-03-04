@@ -1,0 +1,18 @@
+
+.overview-component {
+    min-height:500px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:4rem;
+}
+
+.carousel-inner {
+    background-color:rgb(20, 20, 20);
+}
+
+@media screen and (max-width: 500px){
+    .overview-component {
+        padding:2rem;
+    }
+}

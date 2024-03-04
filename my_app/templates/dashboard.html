@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>Dashboard</title>
+{% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/coin_card.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% include 'overview/overview.html' %}
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+<script src="{% static 'javascript/coin_card.js' %}""></script>
+
+<div id="vue-coin-marketplace">
+    <div class="searchQuery-wrapper">
+        <input class='searchQuery' v-model="searchQuery" placeholder="Search for coins (e.g. 'btc', 'Litecoin', ...)">
+        <div class="searchQuery-button-wrapper">
+            <button @click="load('market_cap', $event)" class="button">Market Cap</button>
+            <button @click="load('percent_change_24h_descending',$event)" class="button">Winners</button>
+            <button @click="load('percent_change_24h_ascending',$event)" class="button">Losers</button>
+            <button @click="load('owned',$event)" class="button">Owned</button>
+            <button @click="load('atoz',$event)" class="button">A-Z</button>
+            <button @click="load('ztoa',$event)" class="button">Z-A</button>
+        </div>
+    </div>
+    <div class="coin-card-grid">
+        <coin-card v-for="coin in filteredCoins" :key="coin.symbol" :coin="coin"/>
+    </div>
+</div>
+
+<script type="application/javascript">
+    var app = new Vue({
+        delimiters: ["[[", "]]"],
+        el: '#vue-coin-marketplace',
+        data: {
+            searchQuery: '',
+            filteredCoins: [],
+        },
+        watch: {
+            searchQuery: function() {
+                this.load();
+            }
+        },
+        methods: {
+            load(sort="market_cap",event=null) {
+                if (event) {
+                    let buttons = document.querySelectorAll('.button');
+                    buttons.forEach(button => {
+                        button.classList.remove('active');
+                    });
+                    event.target.classList.add('active');
+                }
+                
+                let query = this.searchQuery ? this.searchQuery : '';
+                fetch('/data/?coin_symbol=' + query + '&sort=' + sort)
+                .then(response => response.json())
+                .then(data => {
+                    this.filteredCoins = data['data'];
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        },
+        mounted() {
+            this.load();
+        }
+    })
+</script>
+
+{% endblock %}

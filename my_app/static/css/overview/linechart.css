@@ -1,0 +1,14 @@
+.linechart-wrapper {
+    padding:0px;
+    margin:0px;
+    width:100%;
+}
+
+.plot-container.plotly {
+    display:flex;
+    justify-content:center;
+}
+
+.linechart-div {
+    width: 90%;
+}

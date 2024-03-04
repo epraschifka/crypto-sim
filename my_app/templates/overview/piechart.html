@@ -1,0 +1,107 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/overview/piechart.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+<div class="piechart-wrapper overview-component">
+    <div id="piechart_load">
+        {% include 'overview/piechart_load.html' %}
+    </div>
+    <canvas id="myPieChart">
+    </canvas>
+    <script>
+        var ctx = document.getElementById('myPieChart').getContext('2d');
+        var data = {
+            labels: [],
+            datasets: [{
+            data: [],
+            backgroundColor: [],
+            hoverBackgroundColor: []
+            }]
+        };
+
+        let pie_color = "";
+
+        var unparsed_pie = '{{ piechart_data | escapejs }}'
+        var parsed_pie = JSON.parse(unparsed_pie);
+        let coin_label = "";
+        let coin_data = "";
+
+        let noDataDiv = document.querySelector(".no-data-div");
+        let piechart = document.querySelector("#myPieChart");
+
+        if (parsed_pie.data.length === 0)
+        {
+            
+            noDataDiv.innerText = "Your portfolio is empty.";
+            noDataDiv.style.width = 100
+            piechart.style = "display:none;"
+
+        }
+
+        for (let p of parsed_pie.data) {
+            console.log(p);
+            coin_label = `${p.coin_name} (share: ${p.share}%, quantity: ${p.coin_quantity}, value: $${p.coin_value})`;
+            coin_data = `${ p.coin_value }`;
+            data.labels.push(coin_label)
+            data.datasets[0].data.push(coin_data)
+
+            let rev = p.coin_revenue_percent;
+            let pie_color = "";
+
+            if (rev < 0)
+            {
+                pie_color = "crimson";
+            }
+
+            if (rev === 0)
+            {
+                pie_color = "whitesmoke";
+            }
+
+            if (rev > 0)
+            {
+                pie_color = "green";
+            }
+
+            data.datasets[0].backgroundColor.push(pie_color)
+            data.datasets[0].hoverBackgroundColor.push(pie_color)
+        }
+
+        var myPieChart = new Chart(ctx, {
+            title: 'Hello',
+            type: 'pie',
+            data: data,
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: `{{ user }}'s Portfolio Distribution`,
+                        color: 'white',
+
+                        font: {
+                            size: 24,
+                            weight: 'lighter'
+                        },
+
+                    },
+                    legend: {
+                        display: false,
+                    }
+                },
+                animation: {
+                    onComplete: function(context) {
+                        if (context.initial) {
+                            
+                            document.getElementById('myPieChart').style.display = 'none';
+                        }
+                        else{
+                            document.getElementById('piechart_load').style.display = 'none';
+                            document.getElementById('myPieChart').style.display = 'block';
+                        }
+                        
+                    }
+                }
+            }
+            
+        });
+    </script>
+</div>

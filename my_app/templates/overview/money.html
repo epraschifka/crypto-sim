@@ -1,0 +1,12 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/overview/money.css' %}">
+<div class="money-wrapper overview-component">
+    <div>
+        <label>{{ user }}'s Portfolio</label>
+        <h1>{{ user.portfolio_value }} <span class="currency">AUD</span></h1>
+        <label>Cash</label>
+        <h2> {{ user.money }} <span class="currency">AUD</span></h2>
+        <label>Crypto</label>
+        <h2> {{ crypto }} <span class="currency">AUD</span></h2>
+    </div>
+</div>

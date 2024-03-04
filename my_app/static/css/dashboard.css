@@ -1,0 +1,51 @@
+#vue-coin-marketplace {
+    background-color:var(--color);
+    padding: 2rem 16rem 12rem 16rem;
+}
+
+.searchQuery-wrapper {
+    justify-content:space-between;
+}
+
+.searchQuery-button-wrapper {
+    margin:1rem 0rem;
+}
+
+.searchQuery-button-wrapper .button {
+    margin:0.1rem;
+}
+
+.searchQuery {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
+    width:100%;
+    padding: 1rem;
+    font-size:1.5rem;
+    outline:none;
+    background-color:black;
+    color:white;
+    transition:0.4s;
+    outline:none;
+    border:none;
+}
+
+.searchQuery:focus {
+    border:white solid 1px;
+    border-radius:10px;
+}
+
+.coin-card-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap:5px;
+}
+
+@media screen and (max-width: 1300px) {
+    #vue-coin-marketplace {
+        padding: 2rem 2rem 2rem 2rem;
+    }
+
+    .coin-card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}

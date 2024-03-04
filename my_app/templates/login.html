@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>Login</title>
+{% endblock %}
+{% block styles %}    
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-wrapper">
+    <div class="login-form">
+        <h1>Login</h1>
+        {% for message in messages %}
+        <p class="{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+        {% load crispy_forms_tags %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" class="button" value="Login">
+        </form>
+        <br>
+        <a href="{% url 'register' %}" class>Don't have an account? Register.</a>
+    </div>
+</div>
+{% endblock %}
