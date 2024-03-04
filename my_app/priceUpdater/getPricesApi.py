@@ -113,7 +113,7 @@ def func():
             coin_in_database = Coin.objects.get(symbol=coin_in_dict)
 
             # update the user's portfolio value
-            user.portfolio_value = user.portfolio_value + (coin_in_database.price * user.portfolio_dict[coin_in_dict])
+            user.portfolio_value += (coin_in_database.price * Decimal(user.portfolio_dict[coin_in_dict]))
 
         # save the updated user's portfolio value
         user.save()
