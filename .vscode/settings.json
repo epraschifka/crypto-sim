@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/56d5b633-c77a-49d5-b36a-30502830d065/resourceGroups/tradecryptofree-rg/providers/Microsoft.Web/sites/tradecryptofree",
+  "appService.deploySubpath": "."
+}
