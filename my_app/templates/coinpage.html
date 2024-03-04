@@ -27,13 +27,13 @@
       <p>24-hour change (%): {{ coin.percent_change_24h }}</p>          
     </div>
     <div class="coin-order-form">
-      <p>You have {{ user.money }}AUD.</p>
-      <p>You own {{ number_owned }} {{ coin.symbol }}.</p>
+      <h2>You have {{ user.money }}AUD.</h2>
+      <h3>You own {{ number_owned }} {{ coin.symbol }}.</h3>
       {% load crispy_forms_tags %}
         <form class="order-form" id="order-form" method="post" action="{% url 'coin' pk=coin.symbol  %}">
           {% csrf_token %}
           {{ form|crispy }}
-          <p>{{ coin.symbol }} for <span id="cost">0.00</span>AUD</p>
+          <h6>{{ coin.symbol }} for <span id="cost">0.00</span>AUD</h6>
           {% for message in messages %}
           <p class="{{ message.tags }}">{{ message }}</p>
           {% endfor %}

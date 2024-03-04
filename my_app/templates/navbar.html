@@ -6,12 +6,31 @@
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 {% endblock %}
 {% block content %}
-<nav class="nav">
-    <div class="left-links">
-        <a class='nounderline' href="/dashboard">Crypto100</a>
-        <a class='nounderline' href="https://www.coingecko.com/" target="_blank">Powered by CoinGecko</a>
-    </div>
-    <div class="right-links">
+<div class="nav-wrapper">
+    <nav class="nav">
+        <div class="left-links">
+            <a class='nounderline nav-element' href="/dashboard">tradecryptofree</a>
+            <a class='nounderline widescreen nav-element' href="https://www.coingecko.com/" target="_blank">Powered by CoinGecko</a>
+        </div>
+        <div class="right-links">
+            <p class="widescreen nav-element">Prices update every 5 minutes</p>
+            {% if user.is_authenticated %}
+            <form class="widescreen" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <input type="submit" value="Logout" class="button">
+            </form>
+            {% else %}
+            <form class="widescreen" method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <input type="submit" value="Login" class="button">
+            </form>
+            {% endif %}
+            <button class="toggle-dropdown button">&#9776</button>
+        </div>
+    </nav>
+    <div class="nav dropdown">
+        <a class='nounderline nav-element' href="https://www.coingecko.com/" target="_blank">Powered by CoinGecko</a>
+        <p class="nav-element">Prices update every 5 minutes</p>
         {% if user.is_authenticated %}
         <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
@@ -24,5 +43,31 @@
         </form>
         {% endif %}
     </div>
-</nav>
+    <div class="alert-div"> 
+        {% for message in messages %}
+        <div class="alert alert-light alert-dismissible fade show mb-0" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
+
+<script>
+    document.querySelector('.toggle-dropdown').addEventListener('click', function() {
+        document.querySelector('.dropdown').classList.toggle('show');
+    });
+
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 200) {
+            document.querySelector('.nav-wrapper').classList.add('scrolled');
+            document.querySelector('.alert-light').classList.add('scrolled');
+        } else {
+            document.querySelector('.nav-wrapper').classList.remove('scrolled');
+            document.querySelector('.alert-light').classList.remove('scrolled');
+        }
+    })
+</script>

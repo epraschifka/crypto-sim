@@ -142,7 +142,7 @@ def CoinView(request,pk):
                     return render(request,"coinpage.html",{"coin":Coin.objects.get(symbol=pk),"form":form,"number_owned":number_owned})
                 
             if order_type == "sell":
-                owned_quantity = request.user.portfolio_dict.get(pk, 0)
+                owned_quantity = Decimal(request.user.portfolio_dict.get(pk, 0))
                 if order_quantity <= owned_quantity:
                     request.user.portfolio_dict[pk] = str(Decimal(request.user.portfolio_dict.get(pk, 0)) - order_quantity)
                     request.user.money += order_quantity * order_price

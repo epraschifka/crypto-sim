@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-!mzy!8yf=mb2zbz(9s5*^f+g81)s+5ahe0ecq4$@#34r8*b72^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['frozen-basin-13243-47f76c8536db.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','frozen-basin-13243-47f76c8536db.herokuapp.com']
 
 # Application definition
 

@@ -37,7 +37,7 @@
 .coin-card-grid {
     display:grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap:5px;
+    gap:10px;
 }
 
 @media screen and (max-width: 1300px) {
