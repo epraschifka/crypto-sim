@@ -2,13 +2,13 @@
     position:sticky;
     top:0;
     z-index:100;
-    box-shadow: 0px 0px 10px 0px black;
     background-color:var(--color);
     transition:0.2s;
 }
 
 .scrolled {
     background-color:white;
+    box-shadow: 0px 0px 10px 0px black;
 }
 
 .scrolled .nav-element {
