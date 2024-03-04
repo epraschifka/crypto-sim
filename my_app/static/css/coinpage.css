@@ -29,6 +29,7 @@
 
 .coin-info-image {
     width:50px;
+    height:50px;
 }
 
 #submit-order-button {
@@ -49,7 +50,7 @@
     flex-grow:1;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1500px) {
     .coinpage-wrapper {
         flex-direction:column;
         row-gap:1rem;
