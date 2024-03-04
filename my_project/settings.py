@@ -132,3 +132,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "my_app.CustomUser"
 
+if 'WEBSITE_HOSTNAME' in os.environ: # Running on Azure
+    from .azure import *
