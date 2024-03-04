@@ -124,8 +124,8 @@ def func():
         # convert user.portfolio_graph back into a python dictionary
 
         # update date and value lists in the json
-        user.portfolio_graph_dict["date"].append(str(datetime.now()))
-        user.portfolio_graph_dict["value"].append(float(user.portfolio_value))
+        user.portfolio_graph["date"].append(str(datetime.now()))
+        user.portfolio_graph["value"].append(float(user.portfolio_value))
 
         # convert back to json, save in user.portfolio_graph
         user.save()
