@@ -6,10 +6,18 @@ html {
 
 body {
     --navbar-height: 104px;
-    background-color:var(--color);
-    min-height:100vh;
+    position:relative;
 }
 
 .nounderline:hover {
     text-decoration: none;
 }
+
+.background {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    z-index:-1;
+    background-color:var(--color);
+  }

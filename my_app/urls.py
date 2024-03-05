@@ -8,4 +8,6 @@ urlpatterns = [
     path("dashboard/", views.DashboardView, name="dashboard"),
     path("data/", views.DataView, name="data"),
     path("coin/<str:pk>", views.CoinView, name="coin"),
+    path("",views.BaseView, name="base"),
+    re_path(r'^.*$', views.handler404, name="404"),
 ]

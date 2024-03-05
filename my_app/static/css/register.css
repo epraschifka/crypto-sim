@@ -1,11 +1,11 @@
 .register-wrapper {
     display:flex;
     justify-content:center;
-    margin-top:30px;
+    margin: 2.2rem 0rem;
 }
 
 .register-form {
-    box-shadow: 0.3px 0.3px 8px 1px; 
+    box-shadow: 0.3px 0.3px 4px 1px; 
     background-color:rgb(20, 20, 20);
     padding:32px;
     color:white;

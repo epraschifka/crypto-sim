@@ -1,0 +1,6 @@
+.error-page-wrapper {
+    background-color:var(--color);
+    width:100%;
+    color:rgb(190, 182, 182);
+    padding:2rem;
+}

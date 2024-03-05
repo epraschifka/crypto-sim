@@ -11,8 +11,19 @@ from decimal import Decimal
 import json
 from datetime import datetime
 
+def handler404(request):
+    return render(request, '404.html', status=404)
+
+def BaseView(request):
+    if request.user.is_authenticated:
+        return redirect("dashboard")
+
+    return redirect("login")
+
 def LoginView(request):
     if request.method == "GET":
+        if request.user.is_authenticated:
+            return redirect("dashboard")
         return render(request, "login.html", {"form":AuthenticationForm()})
     
     else:
@@ -29,6 +40,9 @@ def LoginView(request):
 
 def RegisterView(request):
     if request.method == "GET":
+        if request.user.is_authenticated:
+            return redirect("dashboard")
+        
         return render(request, "register.html",{"form":CustomUserCreationForm()})
     
     else:
@@ -115,7 +129,13 @@ def CoinView(request,pk):
     number_owned = request.user.portfolio_dict.get(pk, 0)
 
     if request.method == "GET":
-        return render(request,"coinpage.html",{"coin":Coin.objects.get(symbol=pk),"form":OrderForm(), "number_owned":number_owned})
+            coin = Coin.objects.filter(symbol=pk).first()
+            
+            if not coin:
+                messages.error(request,"Coin not found.")
+                return redirect("404")
+            else:
+                return render(request,"coinpage.html",{"coin":coin,"form":OrderForm(), "number_owned":number_owned})
     
     if request.method == "POST":
         form = OrderForm(data=request.POST)

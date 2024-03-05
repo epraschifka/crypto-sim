@@ -25,8 +25,11 @@
 </head>
 <body>
     {% include 'navbar.html' %}
+    <canvas class="background"></canvas>
     {% block content %}
     {% endblock %}
     {% include 'footer.html' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js" crossorigin="anonymous"></script>
+    <script src="{% static 'javascript/particles.js' %}"></script>
 </body>
 </html>

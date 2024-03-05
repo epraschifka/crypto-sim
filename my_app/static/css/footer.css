@@ -1,0 +1,10 @@
+.footer-wrapper {
+    background-color:whitesmoke;
+    width:100%;
+}
+
+.footer-wrapper p {
+    text-align: center;
+    padding: 1rem;
+    margin: 0;
+}

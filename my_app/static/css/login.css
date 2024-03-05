@@ -1,10 +1,11 @@
 .login-wrapper {
     display:flex;
     justify-content:center;
-    margin-top: 60px;
+    margin: 11rem 0rem;
 }
 
 .login-form {
+    box-shadow: 0.3px 0.3px 4px 1px; 
     padding:60px;
     width:30rem;
     background-color:var(--color);

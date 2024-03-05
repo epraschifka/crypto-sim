@@ -1,10 +1,12 @@
 #vue-coin-marketplace {
     background-color:var(--color);
     padding: 2rem 16rem 12rem 16rem;
+    z-index:0;
 }
 
 .searchQuery-wrapper {
     justify-content:space-between;
+    z-index:0;
 }
 
 .searchQuery-button-wrapper {
